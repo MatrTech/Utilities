@@ -1,2 +1,2 @@
-# Template
-This is a template repository for creating new repositories
+# Utilitis
+A general package with ulitities to make setting up your code more easy.
