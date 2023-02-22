@@ -12,8 +12,8 @@
 
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<WarningsAsErrors />
-    
-    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+        
+		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 
 		<PackageId>Matr.Utilities</PackageId>
 		<Authors>MatrTech</Authors>
