@@ -1,11 +1,12 @@
-namespace Matr.Utilities.UnitTests;
-
-public class TestBaseService
+namespace Matr.Utilities.Tests
 {
+    public class TestService
+    {
+        private ITestDependency dependency;
 
-}
-
-public class TestDerivedService : TestBaseService
-{
-    
+        public TestService(ITestDependency dependency)
+        {
+            this.dependency = dependency;
+        }
+    }
 }
