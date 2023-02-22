@@ -1,118 +1,41 @@
-# Utilitis
-A general package with ulitities to make setting up your code more easy.
-
-
-# MatrTech.Utilities.Test
-This package provides some utilities to make it easier to test in C#. For starters it provides a lightweight dependency factory to manage all the tests dependencies. Making it easily and safe to register and replace dependencies within each test. Which provides proper state to test against.
+# Matr.Utilitis
+This is a general usage package with ulitities to make setting up your code more easy. It provides some different kinds of utilities all focused on removing the boilerplate code needed to manage code projects.For starters it provides a lightweight dependency factory to manage all the dependencies. Making it easily and safe to register and replace dependencies.
 
 ## Installing
 The package is easily installed using nuget.
 ```
-Install-Package MatrTech.Utilities.Test
+Install-Package MatrTech.Utilities
 ```
 
 ## Using the package
 ```csharp
-using namespace Matr.Test;
+using namespace Matr.Utilities;
 ```
 
 That's it, now you can use the package.
 
-### MSTest
-```csharp
-[TestClass]
-public class TestClass : TestBase
-{
-    ...
-}
-```
-
-### NUnit
-```csharp
-public class TestClass : TestBase
-{
-    ...
-}
-```
-
-### XUnit
-```Not yet implemented.```
-
 ## Package in action
-### Registering dependencies
-#### MSTest
+
+When you have the following class with a dependency
+
 ```csharp
-[TestInitialize]
-public void TestInitialize()
+public class Service
 {
-    factory.RegisterOrReplace(new Mock<ITestDependency>().Object);
-}
-```
-#### NUnit
-```csharp
-[SetUp]
-public void Init()
-{
-    factory.RegisterOrReplace(new Mock<ITestDependency>().Object);
+    public Service(IDependency dependency)
+    {
+        this.dependency = dependency;
+    }
 }
 ```
 
-#### XUnit
-```Not yet implemented.```
+This could be created using the `GenericFactory`
 
-### Using in tests
-#### MSTest
 ```csharp
-[TestMethod]
-public void TestMethod()
-{
-    // Setup test specifc dependencies.
-    var mockedDependency = new Mock<ITestDependency>();
-    
-    // Mock functionality specific to the test.
-    mockedDependency.Setup(...).Returns(...);
+GenericFactory factory = new GenericFactory();
+factory.RegisterOrReplace<IDependency, Dependency>();
 
-    // Register test specifc dependencies.
-    factory.RegisterOrReplace(mockedDependency.Object);
-    
-    // Create your service with the Create method.
-    // This will resolve all dependencies.
-    var serviceToTest = factory.Create<ServiceToTest>();
-    
-    var result = serviceToTest.MethodToTest();
+...
 
-    Assert.Equal(result, expectedValue);
-}
+var service = factory.Create<Service>();
+
 ```
-
-#### NUnit
-Same goes for NUnit
-```csharp
-[Test]
-public void TestMethod()
-{
-    // Setup test specifc dependencies.
-    var mockedDependency = new Mock<ITestDependency>();
-    
-    // Mock functionality specific to the test.
-    mockedDependency.Setup(...).Returns(...);
-
-    // Register test specifc dependencies.
-    factory.RegisterOrReplace(mockedDependency.Object);
-    
-    // Create your service with the Create method.
-    // This will resolve all dependencies.
-    var serviceToTest = factory.Create<ServiceToTest>();
-    
-    var result = serviceToTest.MethodToTest();
-
-    Assert.Equal(result, expectedValue);
-}
-```
-
-#### XUnit
-```Not yet implemented.```
-
-## Coming soon
-- XUnit implementation
-- JsonTestSource
